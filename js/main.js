@@ -29,6 +29,20 @@ $(window).scroll(function () {
   }
 });
 
+const forms = document.querySelectorAll("#main-form form");
+if (forms.length) {
+  forms.forEach((form) => {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const res = await fetch(form.attributes.action.value, {
+        method: form.attributes.method.value,
+        body: formData,
+      }).then((res) => res.json());
+    });
+  });
+}
+
 let gallery = document.getElementById("gallery");
 let loadMoreButton = document.getElementById("loadMoreButton");
 let images = Array.from(gallery.getElementsByTagName("a"));
